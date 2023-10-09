@@ -9,14 +9,7 @@ Primarily intended to be used with Core Lightning dockerized lnurl-commando coul
 ## Usage
 
 ```
-usage: lnurl-commando --nodeid <nodeid>
-                      --host <commando-host>
-                      --rune <rune>
-                      --callback <lnurl-callback>
-                      --description <invoice-description>
-                      --longDescription <invoice-long-description>
-                      --thumbnail <png|jpg path>
-                      --identifier <email, vecndor, etc>
+docker compose up
 ```
 
 or you can use a `.env` file based on the `.env.example`. Using a .env file is

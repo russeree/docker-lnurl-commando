@@ -77,8 +77,16 @@ function handle_static_payreq(opts, req, res)
 		minSendable: 1,
 		maxSendable: 10000000000,
 		callback: opts.callback,
-		metadata: JSON.stringify(metadata)
+		metadata: JSON.stringify(metadata),
 	}
+
+    //NOSTR Zap support
+    if (opts.npub) {
+        resp.commentAllowed  = 255
+        resp.allowsNostr = true
+        resp.nostrPubkey = opts.npub
+    }
+
 	res.statusCode = 200
 	res.write(JSON.stringify(resp))
 	res.end()

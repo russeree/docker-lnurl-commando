@@ -8,6 +8,7 @@ const DEFAULT_PORT = 8083;
 async function main() {
     const opts = require('minimist')(process.argv.slice(2));
 
+    // Overwrite null args with .env versions
     opts.nodeid = opts.nodeid || process.env.CLN_NODEID;
     opts.host = opts.host || process.env.CLN_HOST;
     opts.rune = opts.rune || process.env.CLN_RUNE;
@@ -16,6 +17,7 @@ async function main() {
     opts.longDescription = opts.longDescription || process.env.LNURL_LONGDESCRIPTION;
     opts.thumbnail = opts.thumbnail || process.env.LOCAL_THUMBNAIL;
     opts.identifier = opts.identifier || process.env.IDENTIFIER;
+    opts.npub = opts.npub || process.env.NOSTR_PUBKEY;
 
     console.log(opts)
     if (!opts.nodeid || !opts.host || !opts.rune || !opts.callback || !opts.description)
@@ -42,6 +44,7 @@ function usage() {
                               --longDescription <invoice-long-description>
                               --thumbnail <png|jpg path>
                               --identifier <email, vendor, etc>
+                              --npub <nostr bip340 pubkey>
     `);
     process.exit(1);
 }

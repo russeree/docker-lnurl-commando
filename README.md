@@ -1,5 +1,5 @@
 
-# lnurl-commando
+# Dockerized lnurl-commando
 
 An lnurl server that fetches invoices over the lightning network via
 lnsocket[^1] and commando[^2]

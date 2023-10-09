@@ -1,0 +1,18 @@
+version: '2'
+services:
+  #QR Snap - LNURL Commando Service
+  lnurl-commando-api:
+    build: .
+    image: qrsnap/lnurl-commando-api
+    container_name: lnurl-commando-api
+    command: /bin/sh -c "npm install && npm exec lnurl-commando"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    ports:
+      - "8083:8083"
+    network_mode: bridge

@@ -1,34 +1,47 @@
 #!/usr/bin/env node
 
-const create_server = require('./')
-// bin stuff (move this?)
+require('dotenv').config();
+const create_server = require('./');
 
-async function main()
-{
-	const opts = require('minimist')(process.argv.slice(2))
+const DEFAULT_PORT = 8083;
 
-	if (!opts.nodeid || !opts.host || !opts.rune || !opts.callback || !opts.description)
-		return usage()
+async function main() {
+    const opts = require('minimist')(process.argv.slice(2));
 
-	const server = await create_server(opts)
+    opts.nodeid = opts.nodeid || process.env.CLN_NODEID;
+    opts.host = opts.host || process.env.CLN_HOST;
+    opts.rune = opts.rune || process.env.CLN_RUNE;
+    opts.description = opts.description || process.env.LNURL_DESCRIPTION;
+    opts.callback = opts.callback || process.env.CALLBACK;
+    opts.longDescription = opts.longDescription || process.env.LNURL_LONGDESCRIPTION;
+    opts.thumbnail = opts.thumbnail || process.env.LOCAL_THUMBNAIL;
+    opts.identifier = opts.identifier || process.env.IDENTIFIER;
 
-	const port = +process.env.PORT || 8083
-	console.log("lnurl-commando listening on port " + port)
-	server.listen(port)
+    console.log(opts)
+    if (!opts.nodeid || !opts.host || !opts.rune || !opts.callback || !opts.description)
+        return usage()
+
+    const server = await create_server(opts);
+    const port = +process.env.PORT || DEFAULT_PORT;
+
+    console.log(`lnurl-commando listening on port ${port}`);
+    server.listen(port);
 }
 
 if (!module.parent) {
-	main()
+    main();
 }
 
 function usage() {
-	console.log("usage: lnurl-commando --nodeid <nodeid>")
-	console.log("                      --host <commando-host>")
-	console.log("                      --rune <rune>")
-	console.log("                      --callback <lnurl-callback>")
-	console.log("                      --description <invoice-description>")
-	console.log("                      --longDescription <invoice-long-description>")
-	console.log("                      --thumbnail <png|jpg path>")
-	console.log("                      --identifier <email, vecndor, etc>")
-	process.exit(1)
+    console.log(`
+        usage: lnurl-commando --nodeid <nodeid>
+                              --host <commando-host>
+                              --rune <rune>
+                              --callback <lnurl-callback>
+                              --description <invoice-description>
+                              --longDescription <invoice-long-description>
+                              --thumbnail <png|jpg path>
+                              --identifier <email, vendor, etc>
+    `);
+    process.exit(1);
 }

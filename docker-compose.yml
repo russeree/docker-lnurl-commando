@@ -1,9 +1,8 @@
 version: '2'
 services:
-  #QR Snap - LNURL Commando Service
   lnurl-commando-api:
     build: .
-    image: qrsnap/lnurl-commando-api
+    image: lightning/lnurl-commando-api
     container_name: lnurl-commando-api
     command: /bin/sh -c "npm install && npm exec lnurl-commando"
     environment:

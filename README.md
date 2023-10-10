@@ -6,6 +6,8 @@ lnsocket[^1] and commando[^2].
 ## Why?
 This dockerized version of lnurl-commando was built to enable LNURL payments on Core Lightning nodes in the form of `name@domain.com`. This is commonplace with LND but core lightning lnurl support right now is not overt. This repo solves this.
 
+lnurl-commando in this version enables zaps on nostr for Core Lightning users.
+
 ## Deps
 - Reverse Proxy
   - [SSL termination](https://docs.nginx.com/nginx/admin-guide/security-controls/terminating-ssl-http/)
